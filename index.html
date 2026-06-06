@@ -11,7 +11,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css" />
 		<link rel="stylesheet" href="dist/reveal.css" />
-		<link rel="stylesheet" href="dist/theme/beige.css" />
+		<link rel="stylesheet" href="dist/theme/white-contrast.css" />
 		<style>
 			.reveal .slides,
 			.reveal .slides section,
@@ -31,9 +31,13 @@
 			.reveal .slides h2 { font-size: 2.5rem; margin: 0 0 1.5rem 0; }
 			.reveal .slides h3 { font-size: 1.5rem; margin: 0 0 1.6rem 0; color: #333; }
 			.reveal .slides ul { font-size: 1.3rem; margin: 0 0 0.5rem 0; padding-left: 1.1rem; }
-			.reveal .slides ul li { margin-bottom: 0.5rem; }
+			.reveal .slides ul li { margin-bottom: 0.5rem; margin-top: 0.5rem;}
 			.reveal .slides ol { font-size: 1.3rem; margin: 0 0 0.5rem 0; padding-left: 1.1rem; }
-			.reveal .slides ol li { margin-bottom: 0.5rem; }
+			.reveal .slides ol li { margin-bottom: 0.5rem; margin-top: 0.5rem;}
+			.reveal .slides table { font-size: 1.3rem; margin: 0 0 0.5rem 0; border-collapse: collapse; }
+			.reveal .slides table th,
+			.reveal .slides table td { padding: 0.5rem 0.5rem; vertical-align: top; }
+			.reveal .slides ul li.no-bullet { list-style: none; margin-left: 0; padding-left: 0; }
 			/* Ensure headings keep their original case (no forced uppercase) */
 			.reveal .slides h1,
 			.reveal .slides h2,
@@ -94,7 +98,7 @@
 				</section>
 				<section id="group-2">
 					<section id="group-2-slide-1">
-						<h2>What is This Talk About</h2>
+						<h2>🤔 What is This Talk About</h2>
 						<h3>Agents that survive contact with real users</h3>
 						<ul>
 							<li class="fragment">Flashy demo  vs. Trustworthy agent </li>
@@ -104,7 +108,7 @@
 						<aside class="notes"></aside>
 					</section>
 					<section id="group-2-slide-2">
-						<h2>What is This Talk About</h2>
+						<h2>🤔 What is This Talk About</h2>
 						<h3>Other foundational concepts</h3>
 						<ul>
 							<li class="fragment">Anatomy of Agents </li>
@@ -114,7 +118,7 @@
 						<aside class="notes"></aside>
 					</section>
 					<section id="group-2-slide-3">
-						<h2>Not About</h2>
+						<h2>🙅‍♀️ Not About</h2>
 						<h3 class="fragment">✅❌ LangGraph, CrewAI, the Agents SDK, ADK, and others ...</h3>
 						<h3 class="fragment">✅❌ Prompt Engineering ...</h3>
 						<h3 class="fragment">✅❌ Just Theory, Research Survey </h3>
@@ -125,7 +129,7 @@
 						<h2 class="r-fit-text fragment">PRODUCTION</h2>
 					</section>
 					<section id="group-2-slide-5">
-						<h2>Who is This Talk For?</h2>
+						<h2>👀 Who is This Talk For?</h2>
 						<ul>
 							<li class="fragment">🧑‍💻 Engineers building real autonomy<g/li>
 							<li class="fragment">🧓 Evaluating agent frameworks for production</li>
@@ -141,7 +145,7 @@
 					</section>
 
 					<section id="group-2-slide-5">
-						<h2>Talk will cover</h2>
+						<h2>🤩 Talk will cover</h2>
 						<ol>
 							<li class="fragment">Foundations, first principles, anotamy of an agent</li>
 							<li class="fragment">Systematic and programmatic approach to the agent's system prompt</li>
@@ -166,36 +170,329 @@
 					
 				</section>
 				<section id="group-3">
+
 					<section id="group-3-slide-1">
-						<h2>Group 3 - Slide 1</h2>
-						<h3>Key topics</h3>
+						<h2>🌱 Foundations</h2>
+						<h3>Beyond Completions</h3>
 						<ul>
-							<li>Introduction to Group 3</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
+							<li class="fragment">Prompt ➡️ LLM ➡️ Response</li>
+							<li class="fragment">Useful, but not agent 🤖 </li>
 						</ul>
-						<aside class="notes">Speaker note: Group 3, Slide 1</aside>
+						<aside class="notes">Figure out "➡️" how to send and recieve</aside>
 					</section>
+
 					<section id="group-3-slide-2">
-						<h2>Group 3 - Slide 2</h2>
-						<h3>Details</h3>
+						<h2>🌱 Foundations</h2>
+						<h3>Anatomy of an Agent</h3>
 						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
+							<li class="fragment">Fundamentally a constrained loop</li>
+							<li class="fragment">Underpins all designs 📌</li>
+							<li class="fragment no-bullet">
+								<img src="/assets/loop.png" style="width: 400px; height: 100%;">
+							</li>
+							<li class="fragment">Understand ➡️ Constrain ➡️ Trust</li>
 						</ul>
-						<aside class="notes">Speaker note: Group 3, Slide 2</aside>
+						<aside class="notes">fundamentally a constrained loop</aside>
 					</section>
+
 					<section id="group-3-slide-3">
-						<h2>Group 3 - Slide 3</h2>
-						<h3>Summary</h3>
+						<h2>🌱 Foundations</h2>
+						<h3>Stages of Loop</h3>
+						<table>
+							<thead>
+								<tr>
+									<th>Stage</th>
+									<th>⚙️🛠️ What Happens</th>
+									<th>Example</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Perceive / Reflect</td>
+									<td>📖 Agent reads user input, tool results, or environment</td>
+									<td>"Find recent papers on LLM agents"</td>
+								</tr>
+								<tr>
+									<td>Plan / Think</td>
+									<td>🧠 LLM reasons about the next step</td>
+									<td>"I should search arXiv first"</td>
+								</tr>
+								<tr>
+									<td>Act</td>
+									<td>Agent calls a 🔨 tool or produces 📄 output</td>
+									<td><pre style="margin: 0%;">search_arxiv(query="LLM agents")</pre></td>
+								</tr>
+								<tr>
+									<td>Observe</td>
+									<td>Agent 👀 reads the tool's return value 📃</td>
+									<td>10 papers returned, titles listed</td>
+								</tr>
+							</tbody>
+						</table>
 						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
+							<li class="fragment">
+								Keeps going until:
+								<ol>
+									<li class="fragment">Final answer ✅</li>
+									<li class="fragment">Maximum iteration 🙀</li>
+									<li class="fragment">Exceptions 😞➡️😄</li>
+								</ol>
+							</li>
 						</ul>
-						<aside class="notes">Speaker note: Group 3, Slide 3</aside>
+						<aside class="notes">Entire idea oabout this task is to handle expeptions gracefully so that we can constrain and trust it.</aside>
 					</section>
+
+					<section id="group-3-slide-4">
+						<h2>🌱 Foundations</h2>
+						<h3>🍀 Four Patterns Matter</h3>
+						<ul>
+							<li class="fragment">Not all agents loop the same way
+
+								<ol>
+									<li class="fragment">ReAct (Reasoning + Acting)</li>
+									<li class="fragment">Chain-of-Thought (CoT)</li>
+									<li class="fragment">Reflection</li>
+									<li class="fragment">Plan-and-Execute</li>
+								</ol>
+
+							</li>
+						</ul>			
+						<aside class="notes">different ways loop is run</aside>
+					</section>
+
+					<section id="group-3-slide-5">
+						<h2>🌱 Foundations</h2>
+						<h3>🍀 Four Patterns Matter</h3>
+						<ul>
+							<li class="fragment">ReAct (Reasoning + Acting)
+
+								<uL>
+									<li class="fragment">Workhorse 🏇</li>
+									<li class="fragment">Think out loud ➡️ do ➡️ observe result ➡️ next move</li>
+									<li class="fragment">Usecases involving step by step processes (eg. ❓ QnA, 🔎 research)</li>
+
+									<li class="fragment no-bullet" data-markdown >
+										<script type="text/template">
+											```txt 
+											🧠 Thought: I need to find the population of Tokyo.
+											🛠️ Action: search_web("population of Tokyo 2025")
+											👀 Observation: Tokyo's population is approximately 13.96 million.
+											🧠 Thought: I have the answer.
+											✅ Final Answer: Tokyo's population is approximately 13.96 million.
+											```
+										</script>
+									</li>
+								</ul>
+
+							</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section id="group-3-slide-6">
+						<h2>🌱 Foundations</h2>
+						<h3>🍀 Four Patterns Matter</h3>
+						<ul>
+							<li class="fragment">Chain-of-Thought (CoT)
+
+								<uL>
+									<li class="fragment">Bureaucrat 👴</li>
+									<li class="fragment">It plans (everything) first, acts once</li>
+									<li class="fragment">Usecases where full plan should be visible (e.g., 😥 Complex reasoning, 📐 math, or 🕸️ multi-step logic)</li>
+
+									<li class="fragment no-bullet" data-markdown >
+										<script type="text/template">
+											```txt
+											Think step by step:
+											1. The user wants a summary of three papers.
+											2. I need to read each paper's abstract.
+											3. Then I'll synthesize a combined summary.
+											4. Let me start by fetching the first paper.
+											```
+										</script>
+									</li>
+								</ul>
+
+							</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section id="group-3-slide-7">
+						<h2>🌱 Foundations</h2>
+						<h3>🍀 Four Patterns Matter</h3>
+						<ul>
+							<li class="fragment">Reflection
+
+								<uL>
+									<li class="fragment">Scientist🧑‍🔬</li>
+									<li class="fragment">Two phase loop: Generate, Critique, Revise ♻️</li>
+									<li class="fragment">Usecases where first drafts improve with self-review. (e.g., ✒️ Writing, 👨‍💻 Code generation)</li>
+
+									<li class="fragment no-bullet" data-markdown >
+										<script type="text/template">
+											```txt
+											Phase 1 (Generate): Here is my analysis of the codebase...
+											Phase 2 (Reflect):  Wait — I missed the error handling in utils.py. Let me revise my analysis.
+											Phase 3 (Revise):   Updated analysis including error handling...
+											```
+										</script>
+									</li>
+								</ul>
+
+							</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section id="group-3-slide-8">
+						<h2>🌱 Foundations</h2>
+						<h3>🍀 Four Patterns Matter</h3>
+						<ul>
+							<li class="fragment">Plan and Execute
+
+								<uL>
+									<li class="fragment">Beurocrat riding a workhorse 🎠</li>
+									<li class="fragment">Create full plan upfront, then executes each step one by one.</li>
+									<li class="fragment">Usecases where scope is extremely clear and don't need mid-process adjustments.</li>
+
+									<li class="fragment no-bullet" data-markdown >
+										<script type="text/template">
+											```txt
+											Plan:
+												1. Search for recent AI agent papers
+												2. Read the top 3 abstracts
+												3. Compare their approaches
+												4. Write a summary table
+
+											Execute:
+												Executing step 1... ✓
+												Executing step 2... ✓
+												Executing step 3... ✓
+												Executing step 4... ✓
+											```
+										</script>
+									</li>
+								</ul>
+
+							</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section id="group-3-slide-9">
+						<h2>🌱 Foundations</h2>
+						<h3>🛠️ Tools 💾 Memory 🏠 State</h3>
+						<ul>
+							<li class="fragment">Regardless of 4️⃣ patterns, agents needs these 3️⃣ things</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section id="group-3-slide-9">
+						<h2>🌱 Foundations</h2>
+						<h3>🛠️ Tools </h3>
+						<ul>
+							<li class="fragment">Tool is a 🐍 function the agent can call</li>
+									<li class="fragment no-bullet" data-markdown >
+										<script type="text/template">
+											```py
+											def search_web(query: str) -> str:
+												"""Search the web and return results."""
+												# ... implementation ...
+												return results
+											```
+										</script>
+									</li>
+							<li class="fragment">Tools let agents "DO THINGS" (eg. Search the web 🔎, Query a database 🗄️, Run code 🏃‍♂️)</li>
+							<li class="fragment">Without tools, an agent is just a 🗣️ chatbot with delusions of competence 🤦</li>
+						</ul>			
+						<aside class="notes">talk the talk but cannot walk the walk</aside>
+					</section>
+
+
+					<section id="group-3-slide-10">
+						<h2>🌱 Foundations</h2>
+						<h3>💾 Memory</h3>
+						<ul>
+							<li class="fragment">Without memory, every conversation starts from scratch</li>
+							<li class="fragment no-bullet">
+								<ol>
+									<li class="fragment">Short-term memory 🧠 (within the conversation in message list)</li>
+									<li class="fragment">Long-term memory 🗄️ (across conversations in vector store)</li>
+									<li class="fragment">Episodic memory 🛠️ (all past interactions, preferences and experiences)</li>
+								</ol>
+							</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+					<section id="group-3-slide-11">
+						<h2>🌱 Foundations</h2>
+						<h3>🏠 State</h3>
+						<ul>
+							<li class="fragment">Agent's current situation</li>
+							<li class="fragment">Conversation history (simple ReAct) / Structured object (complex graph-based agent) </li>
+							<li class="fragment no-bullet" data-markdown >
+								<script type="text/template">
+									```py
+									# Simple state: just a list of messages
+									state = {"messages": []}
+
+									# Structured state (graph agent)
+									state = {
+										"messages": [],
+										"plan": [],
+										"current_step": 0,
+										"needs_human_approval": False,
+									}
+									```
+								</script>
+							</li>
+						</ul>			
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section id="group-3-slide-11">
+						<h2>🌱 Foundations</h2>
+						<h3>🙅‍♀️ When NOT to use an Agent ⚠️</h3>
+						<ul>
+							<li class="fragment">💪 Powerful, but they're also 🐢 slow, 💸 expensive, and 🥲 unpredictable</li>
+							<li class="fragment">👎 Flowchart with no branches</li>
+							<li class="fragment no-bullet">
+								<div style="display:flex; gap:1.25rem; align-items:flex-start;">
+									<div style="flex:1;">
+										<strong>Reach for a plain pipeline when:</strong>
+										<ul>
+											<li>Steps are fixed ✅</li>
+											<li>Order must be strict 🔒</li>
+											<li>Latency matters ⚡</li>
+											<li>Simple CRUD 🧾</li>
+										</ul>
+									</div>
+									<div style="flex:1;">
+										<strong>Reach for an agent when:</strong>
+										<ul>
+											<li>Next step depends on result 🔁</li>
+											<li>Request is unclear ❓</li>
+											<li>Tools unknown up-front 🧰</li>
+											<li>Needs self-correction 🔄</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+
+						</ul>			
+						<aside class="notes">!!! most important section</aside>
+					</section>
+
+
 				</section>
 				<section id="group-4">
 					<section id="group-4-slide-1">

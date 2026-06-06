@@ -610,7 +610,106 @@
 						<aside class="notes"></aside>
 					</section>
 
-					<section id="group-3-slide-12">
+					<section>
+						<h2>🌱 Foundations</h2>
+						<h3>Simple ReAct Prompt for Reasearch Agent</h3>
+						<p data-markdown >
+								<script type="text/template">
+									```py 
+									REACT_SYSTEM_PROMPT = """You are Atlas, a research assistant.
+
+									You answer questions by searching the web and reading pages.
+									For each step, you MUST follow this format:
+
+									Thought: <your reasoning about what to do next>
+									Action: <tool_name>(arg1, arg2, ...)
+									Observation: <you will see the tool result here>
+									... (repeat Thought/Action/Observation as needed)
+									Thought: I have enough information to answer.
+									Final Answer: <your complete answer>
+
+									Available tools:
+									- search_web(query: str) → list of search results
+									- read_url(url: str) → text content of a web page
+
+									RULES:
+									- Always search before answering — don't rely on your training data alone.
+									- Read at least one source to verify your answer.
+									- Use at most 5 tool calls.
+									- If you can't find a reliable answer, say so honestly.
+									- Provide your final answer in a clear, structured format.
+									- Cite your sources with URLs.
+									"""
+
+									```
+								</script>
+						</p>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>🌱 Foundations</h2>
+						<h3>Simple ReAct loop for Reasearch Agent</h3>
+						<p data-markdown >
+								<script type="text/template">
+									```py 
+									def run_agent(question: str) -> str:
+										"""Run the Atlas ReAct agent on a question and return the final answer."""
+										messages = [
+											{"role": "system", "content": SYSTEM_PROMPT},
+											{"role": "user", "content": question},
+										]
+
+										for iteration in range(MAX_ITERATIONS):
+											print(f"\n── Iteration {iteration + 1} ──")
+
+											# Call the LLM
+											response = client.chat.completions.create(
+												model=OPENAI_MODEL,
+												messages=messages,
+												tools=TOOL_SCHEMAS,
+											)
+
+											msg = response.choices[0].message
+											messages.append(msg)
+
+											# If no tool calls, we have a final answer
+											if not msg.tool_calls:
+												print(f"✅ Final answer received.")
+												return msg.content
+
+											# Execute each tool call
+											for tool_call in msg.tool_calls:
+												fn_name = tool_call.function.name
+												fn_args = json.loads(tool_call.function.arguments)
+
+												print(f"🔧 Calling: {fn_name}({fn_args})")
+
+												# Execute the tool
+												if fn_name in TOOLS:
+													result = TOOLS[fn_name](**fn_args)
+												else:
+													result = f"Error: Unknown tool '{fn_name}'"
+
+												# Show a preview of the result
+												preview = result[:200] + "..." if len(result) > 200 else result
+												print(f"📋 Result: {preview}")
+
+												# Feed the result back to the LLM
+												messages.append({
+													"role": "tool",
+													"tool_call_id": tool_call.id,
+													"content": result,
+												})
+
+										return "Agent reached maximum iterations without a final answer."
+									```
+								</script>
+						</p>
+						<aside class="notes"></aside>
+					</section>
+
+					<section id="group-3-slide-last">
 						<h2>🌱 Foundations</h2>
 						<h3>⬇️ Summary </h3>
 						<ul>
@@ -632,36 +731,19 @@
 				</section>
 				<section id="group-4">
 					<section id="group-4-slide-1">
-						<h2>Group 4 - Slide 1</h2>
-						<h3>Key topics</h3>
+
+						<h2>🧠 Practical LLM breakdown as of May 2026</h2>
+
+						<img src="https://cdn.jsdelivr.net/gh/rozeappletree/building-agents-in-production/assets/codellm.png" style="height: 50%; width: 100%;;">
+
 						<ul>
-							<li>Introduction to Group 4</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
+							<li class="fragment">Heavy model for everything — you'll burn through your budget on tasks that light weight model handles</li>
+							<li class="fragment">Light model for architecture decisions — the cost savings aren't worth the quality drop</li>
 						</ul>
-						<aside class="notes">Speaker note: Group 4, Slide 1</aside>
+
+
 					</section>
-					<section id="group-4-slide-2">
-						<h2>Group 4 - Slide 2</h2>
-						<h3>Details</h3>
-						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 4, Slide 2</aside>
-					</section>
-					<section id="group-4-slide-3">
-						<h2>Group 4 - Slide 3</h2>
-						<h3>Summary</h3>
-						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 4, Slide 3</aside>
-					</section>
-				</section>
+					
 				<section id="group-5">
 					<section id="group-5-slide-1">
 						<h2>Group 5 - Slide 1</h2>

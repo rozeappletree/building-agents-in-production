@@ -158,22 +158,22 @@
 					<section id="group-2-slide-5">
 						<h2>🤩 Talk will cover</h2>
 						<ol>
-							<li class="fragment">Foundations, first principles, anotamy of an agent</li>
-							<li class="fragment">Systematic and programmatic approach to the agent's system prompt</li>
-							<li class="fragment">LLM from text generator into an <b>agent</b> that can act on the external world</li>
-							<li class="fragment">Introduce collegues to a sharp agent as it hits the wall (clean, cheap and fast)</li>
-							<li class="fragment">Unpredictable toy into a reliable, engineering-grade system (graph, state, memory)</li>
-							<li class="fragment">multi agent collaboratoin & complex team workflows</li>
-							<li class="fragment">Making sure not at mercy of any single provider</li>
-							<li class="fragment">Out of isolated islands - MCP, A2A, A2UI, AP2</li>
-							<li class="fragment">Monolithic prompts to modular, declarative skills changes how you manage agents</li>
-							<li class="fragment">"Spec-first" discipline, machine-readable contract before any code is executed</li>
-							<li class="fragment">Solving fundamental flaw in stateless LLMs (Memory / IR)</li>
-							<li class="fragment">God-mode of agent capabilities, and keeping it from blowing up in your face</li>
-							<li class="fragment">Expand the agent's sensory inputs to visual and auditory world</li>
-							<li class="fragment">As agents grow in power and autonomy, we must now turn to guardrails (safety & reliability)</li>
-							<li class="fragment">How do we mathematically prove this thing is actually doing its job?</li>
-							<li class="fragment">Agent as a Service (daemon loop, the watchdog, the heartbeat, the restart policy)</li>
+							<li class="fragment">🔹 Foundations, first principles, anotamy of an agent</li>
+							<li class="fragment">🧭 Systematic and programmatic approach to the agent's system prompt</li>
+							<li class="fragment">🤖 LLM from text generator into an <b>agent</b> that can act on the external world</li>
+							<li class="fragment">👥 Introduce collegues to a sharp agent as it hits the wall (clean, cheap and fast)</li>
+							<li class="fragment">🔧 Unpredictable toy into a reliable, engineering-grade system (graph, state, memory)</li>
+							<li class="fragment">🤝 multi agent collaboratoin & complex team workflows</li>
+							<li class="fragment">⚖️ Making sure not at mercy of any single provider</li>
+							<li class="fragment">🌐 Out of isolated islands - MCP, A2A, A2UI, AP2</li>
+							<li class="fragment">🧩 Monolithic prompts to modular, declarative skills changes how you manage agents</li>
+							<li class="fragment">📜 "Spec-first" discipline, machine-readable contract before any code is executed</li>
+							<li class="fragment">🧠 Solving fundamental flaw in stateless LLMs (Memory / IR)</li>
+							<li class="fragment">⚠️ God-mode of agent capabilities, and keeping it from blowing up in your face</li>
+							<li class="fragment">👀 Expand the agent's sensory inputs to visual and auditory world</li>
+							<li class="fragment">🛡️ As agents grow in power and autonomy, we must now turn to guardrails (safety & reliability)</li>
+							<li class="fragment">🧮 How do we mathematically prove this thing is actually doing its job?</li>
+							<li class="fragment">🕰️ Agent as a Service (daemon loop, the watchdog, the heartbeat, the restart policy)</li>
 						</ol>
 						<aside class="notes">
 						</aside>
@@ -744,202 +744,379 @@
 					
 					
 					<section>
-						<h2>Best Practices - Prompt Architecture for Agents</h2>
+						<h2>Prompt Architecture for Agents</h2>
 						<h3>Treat agent prompts as code, not chat.</h3>
 						<ul>
 							<li>"be helpful." ➡️ Operating manual with role, rules, data, and output format  </li>
 							<li>Structure, precision, edge case handling, and version control</li>
 						</ul>
-						<aside class="notes">Speaker note: Group 5, Slide 1</aside>
+						<aside class="notes"></aside>
 					</section>
 
 					<section>
-						<h2>Best Practices - Prompt Architecture for Agents</h2>
+						<h2>Prompt Architecture for Agents</h2>
 						<h3>Four layer prompt architecture</h3>
-						<img src="https://cdn.jsdelivr.net/gh/rozeappletree/building-agents-in-production/assets/prompt-arch.png" style="height: 60%; width: 100%;">
-						<aside class="notes">Speaker note: Group 5, Slide 1</aside>
+						<ol>
+							<li class="fragment">System Identity: Who is the agent? Define role, personality, and hard boundaries — what it will and won't do.</li>
+							<li class="fragment">Instructions Operational: rules, available tools, workflow steps, error handling, and escalation paths.</li>
+							<li class="fragment">Context Injection: Dynamic runtime data — user profile, session history, current time, conversation summaries.</li>
+							<li class="fragment">Output Constraints: Enforce exact response format (e.g. JSON schema) so downstream systems can parse reliably.</li>
+						</ol>
+						<aside class="notes"></aside>
 					</section>
 
-					<section id="group-5-slide-2">
-						<h2>Group 5 - Slide 2</h2>
-						<h3>Details</h3>
+					<section>
+						<h2>Prompt Architecture for Agents</h2>
+						<h3>Persona Design</h3>
 						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 5, Slide 2</aside>
+							<li class="fragment">Persona is an engineering decision, not decoration</li>
+							<li class="fragment">Research consistently shows that LLMs adjust their reasoning depth, formality, and risk tolerance based on the role they're given. Choosing a persona is an engineering decision with measurable consequences.</li>
+							<li class="fragment">Watch out: the "thorough" persona often loses on accuracy because it tries too hard and starts inventing facts to fill gaps. Always benchmark variants against real test cases.</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
-					<section id="group-5-slide-3">
-						<h2>Group 5 - Slide 3</h2>
-						<h3>Summary</h3>
+
+
+					<section>
+						<h2>Prompt Architecture for Agents</h2>
+						<h3>Few-Shot Examples</h3>
 						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 5, Slide 3</aside>
+							<li class="fragment">Show, don't tell</li>
+							<li class="fragment">Instead of trying to describe what you want — which gets messy fast — you just show it.</li>
+							<li class="fragment">Skip few-shot when the prompt is already long (each example adds tokens and cost) or the task is simple enough that instructions alone do the job.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Prompt Architecture for Agents</h2>
+						<h3>Versioning & Testing</h3>
+						<ul>
+							<li class="fragment">Treat prompts like production code</li>
+							<li class="fragment">The hidden failure mode: Testing only the "happy path" means silent bugs lurk in production. Every edge case in real usage must be covered by eval cases — including expected refusals.</li>
+							<li class="fragment">"Prompts need version control just like code. When you change a prompt, old bugs come back. When you don't track which version is running in production, debugging becomes guesswork."</li>
+							<li class="fragment">Regression test cases should cover: required tool usage, keyword presence in answers, max tool-call efficiency limits, and expected refusals for out-of-scope queries.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Prompt Architecture for Agents</h2>
+						<h3>Best Practices</h3>
+						<ul>
+							<li class="fragment">Treat agent prompts as code, not chat</li>
+							<li class="fragment">Constraints make agents more reliable, not less</li>
+							<li class="fragment">Test the unhappy path - include expected refusals and edge cases</li>
+							<li class="fragment">Persona choices are measurable</li>
+							<li class="fragment">Match thinking budget to task difficulty</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
 				</section>
+
+
 				<section id="group-6">
-					<section id="group-6-slide-1">
-						<h2>Group 6 - Slide 1</h2>
-						<h3>Key topics</h3>
+
+
+					<section>
+						<h2>Tools, Skills, and Structured Outputs</h2>
+						<h3>Tool Design</h3>
 						<ul>
-							<li>Introduction to Group 6</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 6, Slide 1</aside>
-					</section>
-					<section id="group-6-slide-2">
-						<h2>Group 6 - Slide 2</h2>
-						<h3>Details</h3>
+							<li class="fragment">All major LLM providers use JSON Schema underneath</li>
+							<li class="fragment no-bullet">👉 Abstract away vendor-specific wrappers rather than maintaining separate tool definitions per provider</li>
+							<li class="fragment">Build atomic tools that do exactly one thing</li>
+							<li class="fragment no-bullet">👉 If you're writing "web_search_and_summarize", stop — you've created a hidden agent inside a tool. Split it and let the agent's main loop handle orchestration</li>
 						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 6, Slide 2</aside>
+						<aside class="notes"></aside>
 					</section>
-					<section id="group-6-slide-3">
-						<h2>Group 6 - Slide 3</h2>
-						<h3>Summary</h3>
+
+
+					<section>
+						<h2>Tools, Skills, and Structured Outputs</h2>
+						<h3>Structured Outputs</h3>
 						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 6, Slide 3</aside>
+							<li class="fragment">Never parse LLM responses with regex</li>
+							<li class="fragment no-bullet">👉 Use Pydantic schemas and tell the model to return matching JSON — if it doesn't validate, retry</li>
+							<li class="fragment">Never return a raw string from a complex tool</li>
+							<li class="fragment no-bullet">👉 Return a structured "SkillResult" object with success, message, data, snapshot, and error_code fields so failures are programmatically distinguishable</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
+
+
+					<section>
+						<h2>Tools, Skills, and Structured Outputs</h2>
+						<h3>Skill Organization</h3>
+						<ul>
+							<li class="fragment">Package related tools into reusable Skills </li>
+							<li class="fragment no-bullet">👉 With shared config, API keys, rate limits, and error handling — eliminates copy-paste sprawl across agents</li>
+							<li class="fragment">Use a central SkillRegistry for tool discovery and dispatch</li>
+							<li class="fragment no-bullet">👉 Rather than hardwiring tools into each agent</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+
+					<section>
+						<h2>Tools, Skills, and Structured Outputs</h2>
+						<h3>Safety & Reliability</h3>
+						<ul>
+							<li class="fragment">Assume inputs are malicious</li>
+							<li class="fragment no-bullet">👉 Validate file paths are within a sandbox before reading; run static AST analysis before executing code</li>
+							<li class="fragment">Build retry-with-backoff and fallback strategies</li>
+							<li class="fragment no-bullet">👉 Before you ship, not after the first outage</li>
+							<li class="fragment">Use declarative Markdown skills (SKILL.md files with YAML frontmatter)</li>
+							<li class="fragment no-bullet">👉 Separate behavior from infrastructure — keeps Python logic clean and lets non-engineers tune agent behavior</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section>
+						<h2>Tools, Skills, and Structured Outputs</h2>
+						<h3>The core mindset shift</h3>
+						<h4> Stop building "clever scripts" and build a Capability Library — atomic, testable, sandboxed, and framework-agnostic.</h4>
+						<aside class="notes"></aside>
+					</section>
+
 				</section>
+
+
 				<section id="group-7">
-					<section id="group-7-slide-1">
-						<h2>Group 7 - Slide 1</h2>
-						<h3>Key topics</h3>
+
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>When to use handoffs (and when not to)</h3>
 						<ul>
-							<li>Introduction to Group 7</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 7, Slide 1</aside>
+							<li class="fragment">Use handoffs when each sub-task is independent</li>
+							<li class="fragment no-bullet">👉 one agent can fully handle a request, and errors are self-contained.</li>
+							<li class="fragment">Use graphs or crews when tasks depend on each other</li>
+							<li class="fragment no-bullet">👉 gents need to collaborate on the same output, or failures require coordinated recovery.</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
-					<section id="group-7-slide-2">
-						<h2>Group 7 - Slide 2</h2>
-						<h3>Details</h3>
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>Start simple, add complexity only when justified</h3>
 						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 7, Slide 2</aside>
+							<li class="fragment">most expensive mistake in agent design is reaching for LangGraph or CrewAI when a simple fan-out would do</li>
+							<li class="fragment no-bullet">👉 Costly in both engineering time and runtime. Don't overcomplicate routing until you have a concrete reason to.</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
-					<section id="group-7-slide-3">
-						<h2>Group 7 - Slide 3</h2>
-						<h3>Summary</h3>
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>Keep the router's job narrow</h3>
 						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 7, Slide 3</aside>
+							<li class="fragment">The triage agent's instructions make this explicit</li>
+							<li class="fragment no-bullet">👉 Your ONLY job is to route... Do NOT try to answer questions yourself. Just route."</li>
+							<li class="fragment">A router that starts answering questions is no longer a router.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>Scope specialist agents tightly</h3>
+						<ul>
+							<li class="fragment">Each specialist should have narrow instructions and know when to hand back</li>
+							<li class="fragment no-bullet">👉 e.g., "If the question is not about billing, hand off to the triage agent."</li>
+							<li class="fragment">This prevents agents from overreaching</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>Use context compression for long trajectories</h3>
+						<ul>
+							<li class="fragment">Without compressing state when handing off between agents, you'll hit context window limits</li>
+							<li class="fragment no-bullet">👉 execution history into a compact block before handoff is a production-readiness requirement, not an optimization.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>Use embedding-based routing to cut costs</h3>
+						<ul>
+							<li class="fragment">Cheap local sentence embeddings with cosine similarity can route requests without an LLM API call</li>
+							<li class="fragment no-bullet">👉 avoiding latency and cost overhead on every incoming message.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section>
+						<h2>Handoffs and Routines</h2>
+						<h3>Know the hard limit of the pattern</h3>
+						<ul>
+							<li class="fragment">Handoffs break the moment one agent's output needs to feed into another's input, or a human approval step is required mid-flow.</li>
+							<li class="fragment">That's the signal to introduce state and graph-based architecture — not before.</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
 				</section>
+
+
+
 				<section id="group-8">
-					<section id="group-8-slide-1">
-						<h2>Group 8 - Slide 1</h2>
-						<h3>Key topics</h3>
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>Retry needs Graph</h3>
 						<ul>
-							<li>Introduction to Group 8</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 8, Slide 1</aside>
+							<li class="fragment">Model agents as stateful directed graphs, not linear chains</li>
+							<li class="fragment no-bullet">👉 Linear designs like ReAct loops can't self-correct or retry</li>
+							<li class="fragment no-bullet">👉 The moment you need a retry, you need a graph with explicit nodes and edges for Try, Evaluate, and Retry logic</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
-					<section id="group-8-slide-2">
-						<h2>Group 8 - Slide 2</h2>
-						<h3>Details</h3>
+
+
+
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>The question isn't if production agents fail, but how gracefully.</h3>
 						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 8, Slide 2</aside>
+							<li class="fragment">Design for failure explicitly</li>
+							<li class="fragment no-bullet">👉 Errors are not edge cases. Model recovery as first-class edges in the graph</li>
+							<li class="fragment no-bullet">👉 Retry paths, escalation paths, and human handoff paths</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
-					<section id="group-8-slide-3">
-						<h2>Group 8 - Slide 3</h2>
-						<h3>Summary</h3>
+
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>Use retry limits with escalation</h3>
 						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 8, Slide 3</aside>
+							<li class="fragment">Cap retries (e.g., retry_count < 2) and route beyond that limit to a human or escalation node</li>
+							<li class="fragment no-bullet">👉 Never let an agent loop indefinitely</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>Add human-in-the-loop checkpoints before mutable operations</h3>
+						<ul>
+							<li class="fragment">Use interrupt_before on any node that writes, posts, or changes state in the real world.</li>
+							<li class="fragment no-bullet">👉  Let a human review sensitive plan before the agent acts on it</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>Use durable checkpointers in production</h3>
+						<ul>
+							<li class="fragment">MemorySaver is fine for development, but production systems need SQLite (single machine) or PostgreSQL (distributed) so state survives process restarts.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>Match the tool to the complexity</h3>
+						<ul>
+							<li class="fragment">Use lightweight frameworks like smolagents for quick prototypes and one-off scripts.</li>
+							<li class="fragment">Reach for LangGraph only when you need production-grade state management, persistence, and complex control flow.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Stateful Agent Graphs</h2>
+						<h3>Keep state as a shared, typed dictionary</h3>
+						<ul>
+							<li class="fragment">Flow a single TypedDict state through the entire graph</li>
+							<li class="fragment no-bullet">👉 so every node reads and writes to a consistent, inspectable structure</li>
+							<li class="fragment no-bullet">👉 makes debugging and time-travel replay practical</li>
+
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+				</section>
+
+
+				<section>
+
+					<section>
+						<h2>Multi-Agent Collaboration</h2>
+						<h3>On When to Use Multi-Agent Systems</h3>
+						<ul>
+							<li class="fragment">architecture is powerful, but the coordination tax is brutal. </li>
+							<li class="fragment no-bullet">👉 More agents means more latency, explosive API costs, hallucination cascading, and actual nightmares when trying to debug which agent screwed up first</li>
+							<li class="fragment">The core principle: only use multiple agents when roles are genuinely distinct — don't add agents just because you can.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h2>Multi-Agent Collaboration</h2>
+						<h3>On Debugging & Predictability</h3>
+						<ul>
+							<li class="fragment">Assembly Line Patter</li>
+							<li class="fragment no-bullet">👉 CrewAI's explicit task pipelines are easier to debug because execution order is predictable, versus conversational frameworks where emergent flow is harder to trace. Design for debuggability from the start.</li>
+						<ul>
+						<aside class="notes"></aside>
+					</section>
+
+
+					<section>
+						<h2>Multi-Agent Collaboration</h2>
+						<h3>More...</h3>
+						<ul>
+							<li class="fragment">On High-Stakes Accuracy</li>
+							<li class="fragment no-bullet">👉 Dbeate Protocol: If you are building an agent focused on factual accuracy (like a medical or legal assistant), don't just rely on a single ReAct loop. Put the output through a debate protocol before showing it to the user</li>
+							<li class="fragment no-bullet">👉 Use a Generator → Challenger → Revise cycle until the challenger runs out of objections or you hit max rounds.</li>
+							<li class="fragment">On Governance & Agentic Actions</li>
+							<li class="fragment no-bullet">👉 Agents that can take real-world actions (messaging people, raising approvals, closing tickets) need hard interrupt-before-mutate checkpoints — not polite post-action email summaries.</li>
+							<li class="fragment">On Resilience</li>
+							<li class="fragment no-bullet">👉 Hard-locking a multi-agent crew to a single API provider is a critical flaw. Fallback logic across providers isn't optional — it's a hard requirement for production systems.</li>
+						<ul>
+						<aside class="notes"></aside>
 					</section>
 				</section>
-				<section id="group-9">
-					<section id="group-9-slide-1">
-						<h2>Group 9 - Slide 1</h2>
-						<h3>Key topics</h3>
-						<ul>
-							<li>Introduction to Group 9</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 9, Slide 1</aside>
-					</section>
-					<section id="group-9-slide-2">
-						<h2>Group 9 - Slide 2</h2>
-						<h3>Details</h3>
-						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 9, Slide 2</aside>
-					</section>
-					<section id="group-9-slide-3">
-						<h2>Group 9 - Slide 3</h2>
-						<h3>Summary</h3>
-						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 9, Slide 3</aside>
-					</section>
-				</section>
-				<section id="group-10">
-					<section id="group-10-slide-1">
-						<h2>Group 10 - Slide 1</h2>
-						<h3>Key topics</h3>
-						<ul>
-							<li>Introduction to Group 10</li>
-							<li>Main idea and purpose</li>
-							<li>Next steps</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 10, Slide 1</aside>
-					</section>
-					<section id="group-10-slide-2">
-						<h2>Group 10 - Slide 2</h2>
-						<h3>Details</h3>
-						<ul>
-							<li>Point A</li>
-							<li>Point B</li>
-							<li>Point C</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 10, Slide 2</aside>
-					</section>
-					<section id="group-10-slide-3">
-						<h2>Group 10 - Slide 3</h2>
-						<h3>Summary</h3>
-						<ul>
-							<li>Recap main ideas</li>
-							<li>Review progress</li>
-							<li>Prepare for next group</li>
-						</ul>
-						<aside class="notes">Speaker note: Group 10, Slide 3</aside>
-					</section>
+
+				<section id="group-2-slide-5">
+					<h2>⏭️ Next steps...</h2>
+					<ol>
+						<li class="fragment">🔹 Foundations, first principles, anotamy of an agent</li>
+						<li class="fragment">🧭 Systematic and programmatic approach to the agent's system prompt</li>
+						<li class="fragment">🤖 LLM from text generator into an <b>agent</b> that can act on the external world</li>
+						<li class="fragment">👥 Introduce collegues to a sharp agent as it hits the wall (clean, cheap and fast)</li>
+						<li class="fragment">🔧 Unpredictable toy into a reliable, engineering-grade system (graph, state, memory)</li>
+						<li class="fragment">🤝 multi agent collaboratoin & complex team workflows</li>
+						<li class="fragment">⚖️ Making sure not at mercy of any single provider</li>
+						<li class="fragment">🌐 Out of isolated islands - MCP, A2A, A2UI, AP2</li>
+						<li class="fragment">🧩 Monolithic prompts to modular, declarative skills changes how you manage agents</li>
+						<li class="fragment">📜 "Spec-first" discipline, machine-readable contract before any code is executed</li>
+						<li class="fragment">🧠 Solving fundamental flaw in stateless LLMs (Memory / IR)</li>
+						<li class="fragment">⚠️ God-mode of agent capabilities, and keeping it from blowing up in your face</li>
+						<li class="fragment">👀 Expand the agent's sensory inputs to visual and auditory world</li>
+						<li class="fragment">🛡️ As agents grow in power and autonomy, we must now turn to guardrails (safety & reliability)</li>
+						<li class="fragment">🧮 How do we mathematically prove this thing is actually doing its job?</li>
+						<li class="fragment">🕰️ Agent as a Service (daemon loop, the watchdog, the heartbeat, the restart policy)</li>
+						<li class="fragment no-bullet">
+						🔗 <a href="https://docs.google.com/document/d/1keM4ZbbfVmdsq3EAkbAliIegOpnnuBf-_KpD4oDOF0o/edit?tab=t.v7pv4ri2s52o#heading=h.krehm6fudp7y">Know more...</a>
+						</li>
+					</ol>
+
+					<p style="font-size: x-small;">
+					</p>
+					<aside class="notes">
+					</aside>
 				</section>
 			</div>
 		</div>

@@ -470,7 +470,7 @@
 					</section>
 
 
-					<section id="group-3-slide-11">
+					<section id="group-3-slide-12">
 						<h2>🌱 Foundations</h2>
 						<h3>🙅‍♀️ When NOT to use an Agent ⚠️</h3>
 						<ul>
@@ -503,6 +503,131 @@
 						<aside class="notes">!!! most important section</aside>
 					</section>
 
+					<section id="group-3-slide-13">
+						<h2>🌱 Foundations</h2>
+						<h3>Minimal Tool Calling Loop (OpenAI)</h3>
+						<p data-markdown >
+								<script type="text/template">
+									```py 
+									import json
+									from openai import OpenAI
+
+									client = OpenAI()
+
+									# 1. Define a tool
+									tools = [{
+										"type": "function",
+										"function": {
+											"name": "get_weather",
+											"description": "Get the current weather for a city",
+											"parameters": {
+												"type": "object",
+												"properties": {
+													"city": {"type": "string", "description": "City name"}
+												},
+												"required": ["city"]
+											}
+										}
+									}]
+
+									# 2. Our tool implementation
+									def get_weather(city: str) -> str:
+										return f"The weather in {city} is 22°C and sunny."
+
+									# 3. The loop: call LLM → execute tools → feed results back
+									messages = [{"role": "user", "content": "What's the weather in Tokyo?"}]
+
+									while True:
+										response = client.chat.completions.create(
+											model="gpt-4o", messages=messages, tools=tools
+										)
+										msg = response.choices[0].message
+										messages.append(msg)
+
+										if msg.tool_calls:
+											for tc in msg.tool_calls:
+												args = json.loads(tc.function.arguments)
+												result = get_weather(**args)
+												messages.append({
+													"role": "tool",
+													"tool_call_id": tc.id,
+													"content": result
+												})
+										else:
+											print(msg.content)
+											break
+									```
+								</script>
+						</p>
+						<aside class="notes"></aside>
+					</section>
+
+					<section id="group-3-slide-14">
+						<h2>🌱 Foundations</h2>
+						<h3>Minimal Tool Calling Loop (Gemini)</h3>
+						<p data-markdown >
+								<script type="text/template">
+									```py 
+									from google import genai
+									from google.genai import types
+
+									client = genai.Client()
+
+									# 1. Define the same tool for Gemini
+									get_weather_decl = types.FunctionDeclaration(
+										name="get_weather",
+										description="Get the current weather for a city",
+										parameters=types.Schema(
+											type=types.Type.OBJECT,
+											properties={"city": types.Schema(type=types.Type.STRING)},
+											required=["city"],
+										),
+									)
+
+									tool = types.Tool(function_declarations=[get_weather_decl])
+
+									# 2. Same implementation
+									def get_weather(city: str) -> str:
+										return f"The weather in {city} is 22°C and sunny."
+
+									# 3. Gemini handles the loop via automatic_function_calling
+									config = types.GenerateContentConfig(
+										tools=[tool],
+										automatic_function_calling=types.AutomaticFunctionCallingConfig(
+											disable=False
+										),
+									)
+
+									response = client.models.generate_content(
+										model="gemini-2.5-flash",
+										contents="What's the weather in Tokyo?",
+										config=config,
+									)
+									print(response.text)
+									```
+								</script>
+						</p>
+						<aside class="notes"></aside>
+					</section>
+
+					<section id="group-3-slide-12">
+						<h2>🌱 Foundations</h2>
+						<h3>⬇️ Summary </h3>
+						<ul>
+							<li class="fragment">🔄 AI agents are fundamentally constarined loops, not one-time LLM responses.</li>
+							<li class="fragment">🧠 Core agent loop: Perceive → Plan → Act → Observe.</li>
+							<li class="fragment">🏗️ This loop forms the foundation of reliable agent architectures</li>
+							<li class="fragment">⚡ Key design patterns: ReAct, Chain-of-Thought, Reflection, and Plan-and-Execute</li>
+							<li class="fragment">🎯 Each pattern has specific strengths and use cases.</li>
+							<li class="fragment">🛠️ Tools enable agents to interact with external systems.</li>
+							<li class="fragment">💾 Memory provides persistence and context across tasks.</li>
+							<li class="fragment">📌 State management keeps agent behavior structured and reliable.</li>
+							<li class="fragment">⚖️ Choose complex agents only when the problem requires them.</li>
+							<li class="fragment">🚀 For simpler tasks, a code pipeline is often faster and more efficient.</li>
+							<li class="fragment">✅ Mastering these fundamentals prepares you to build production-ready AI agents.</li>
+						</ul>
+						<aside class="notes"></aside>
+					</section>
 
 				</section>
 				<section id="group-4">
